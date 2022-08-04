@@ -1,6 +1,10 @@
 # Dog Gallery Liker
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- simple flex wrap for grid
+- basic fixed side nav implementation
+- ✨react + redux ✨
+
 
 ## Available Scripts
 

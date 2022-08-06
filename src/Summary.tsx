@@ -99,8 +99,8 @@ const Summary: FC<Props> = ({ breeds, searchToken, searchSummary }) => {
 
 const mapReduxStateToProps = (state: any) => {
   return {
-    breeds: state.reducer.breeds,
-    searchToken: state.reducer.searchToken
+    breeds: state.breeds,
+    searchToken: state.searchToken
   }
 }
 

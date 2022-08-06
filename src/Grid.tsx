@@ -26,6 +26,7 @@ interface Props {
   fetchingImages: boolean
   fetchImagesStart: any
   fetchImagesDone: any
+  searchToken: string
 }
 
 const styles: any = {
@@ -33,7 +34,7 @@ const styles: any = {
   flexDirection: 'row',
   flexWrap: 'wrap',
   marginLeft: '20vw',
-  width: 'auto'
+  width: '100%'
 }
 
 const Grid: FC<Props> = ({
@@ -45,7 +46,8 @@ const Grid: FC<Props> = ({
   fetchDogsFail,
   updateBreed,
   fetchImagesStart,
-  fetchImagesDone
+  fetchImagesDone,
+  searchToken
 }) => {
   const SIZE = 100
 
@@ -105,28 +107,33 @@ const Grid: FC<Props> = ({
   return (
     <div style={styles}>
       {breeds &&
-        breeds.map((dog: IDog) => {
-          const { id, name, likes, image } = dog
-          return (
-            <Dog
-              key={id}
-              id={id}
-              name={name}
-              likes={likes}
-              image={image}
-              updateBreed={updateBreed}
-            />
-          )
-        })}
+        breeds
+          .filter((a: IDog) => {
+            return a.name.toLowerCase().includes(searchToken.toLowerCase())
+          })
+          .map((dog: IDog) => {
+            const { id, name, likes, image } = dog
+            return (
+              <Dog
+                key={id}
+                id={id}
+                name={name}
+                likes={likes}
+                image={image}
+                updateBreed={updateBreed}
+              />
+            )
+          })}
     </div>
   )
 }
 
 const mapReduxStateToProps = (state: any) => {
   return {
-    breeds: state.reducer.breeds,
-    fetchedImages: state.reducer.fetchedImages,
-    fetchingImages: state.reducer.fetchingImages
+    breeds: state.breeds,
+    fetchedImages: state.fetchedImages,
+    fetchingImages: state.fetchingImages,
+    searchToken: state.searchToken
   }
 }
 
